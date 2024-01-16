@@ -23,9 +23,7 @@ public class OrangeHRMLoginTest {
 
 	public static void main(String[] args) throws InterruptedException {
 		
-		//System.setProperty("webdriver.chrome.driver","C:\\Drivers\\chromedriver_win32\\chromedriver.exe");
-		//WebDriverManager.chromedriver().setup();
-		
+	
 		//1) Launch browser
 		//ChromeDriver driver=new ChromeDriver();
 		WebDriver driver=new ChromeDriver();
