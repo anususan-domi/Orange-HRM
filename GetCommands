@@ -1,0 +1,62 @@
+
+
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class GetCommands {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriver driver=new ChromeDriver();
+		
+		//get()
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		driver.manage().window().maximize();
+		Thread.sleep(5000);
+		
+		//getTitle()
+		String title=driver.getTitle();
+		System.out.println("title of the page:"+title);
+		
+		//getPageSource()
+		//String str=driver.getPageSource();
+		//System.out.println(str.contains("head"));
+		
+		//getCurrentURL()
+		System.out.println("the current URL of the page:"+driver.getCurrentUrl());
+
+		//getWindowHandle()
+		System.out.println("WindowID:"+driver.getWindowHandle());//CDwindow-946999FC43B5E258A0F463E265022C5C
+																//CDwindow-1142205A1412C0C2A85F7FE4FA06BE7F
+		
+		
+		//getWindowHandles()
+		
+		driver.findElement(By.xpath("//a[normalize-space()='OrangeHRM, Inc']")).click(); // opens another browser window
+		
+		Set<String> windowids=driver.getWindowHandles();
+		
+		for(String winid:windowids)
+		{
+			//System.out.println(winid);
+			title=driver.switchTo().window(winid).getTitle();
+			
+			if(title.equals("OrangeHRM"))
+			{
+				System.out.println(winid+ "parent window");
+				
+			}
+			else
+			{
+				System.out.println(winid+ "child window");
+			}
+		}
+		
+		
+	}
+
+}
