@@ -1,0 +1,78 @@
+
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
+
+public class HandleBrowserWindows {
+
+	public static void main(String[] args) throws InterruptedException {
+	
+		WebDriver driver=new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		driver.manage().window().maximize();
+		
+		driver.findElement(By.xpath("//a[normalize-space()='OrangeHRM, Inc']")).click();
+		
+		Thread.sleep(5000);
+		
+		Set<String> windowIDs=driver.getWindowHandles();
+				
+		//Approach 1 - using list collection
+		/*List<String> windowidsList=new ArrayList(windowIDs);
+		
+		String parentWindowID=windowidsList.get(0);
+		String childWindowID=windowidsList.get(1);
+		
+		//switch to child window
+		driver.switchTo().window(childWindowID);
+		System.out.println("child window title:"+driver.getTitle()); //OrangeHRM HR Software | Free & Open Source HR Software | HRMS | HRIS | OrangeHRM
+		
+		//switch to parent window
+		driver.switchTo().window(parentWindowID);
+		System.out.println("parent window title:"+driver.getTitle()); //OrangeHRM
+		*/
+		
+		//Appraoch2 : using looping statement	
+		/*
+		for(String winid:windowIDs)
+		{
+			String title=driver.switchTo().window(winid).getTitle();
+			
+			if(title.equals("OrangeHRM HR Software | Free & Open Source HR Software | HRMS | HRIS | OrangeHRM"))
+			{
+				//actions on browser window
+				System.out.println(driver.getCurrentUrl());
+			}
+			
+		}*/
+		
+		
+		for(String winid:windowIDs)
+		{
+			String title=driver.switchTo().window(winid).getTitle();
+			
+			if(title.equals("OrangeHRM") || title.equals("xyz") || title.equals("abc"))
+			{
+				driver.close();
+			}
+			
+		}
+		
+	}
+
+}
+
+
+
+
+
